@@ -464,50 +464,51 @@ int Muted = -1;</declaration>
 		<name>FlowTv</name>
 		<declaration>int CurrentChannel = 0;</declaration>
 		<location id="id36" x="0" y="0">
-			<name x="17" y="-25">Initial</name>
+			<name x="8" y="-25">Initial</name>
 		</location>
-		<location id="id37" x="-306" y="42">
-			<name x="-425" y="8">IncrementChannelLoc</name>
+		<location id="id37" x="-306" y="0">
+			<name x="-459" y="-17">IncrementChannelLoc</name>
 		</location>
-		<location id="id38" x="8" y="-170">
-			<name x="-51" y="-204">ButtonChannelChange</name>
+		<location id="id38" x="0" y="-102">
+			<name x="-59" y="-136">ButtonChannelChange</name>
 			<committed/>
 		</location>
 		<init ref="id36"/>
 		<transition>
 			<source ref="id36"/>
 			<target ref="id37"/>
-			<label kind="guard" x="-255" y="-102">CurrentChannel&gt;=99</label>
-			<label kind="synchronisation" x="-255" y="-85">FlowTvIncrementChannel?</label>
-			<label kind="assignment" x="-255" y="-68">CurrentChannel:=1</label>
-			<nail x="-178" y="-51"/>
+			<label kind="guard" x="-272" y="-119">CurrentChannel&gt;=99</label>
+			<label kind="synchronisation" x="-272" y="-102">FlowTvIncrementChannel?</label>
+			<label kind="assignment" x="-272" y="-85">CurrentChannel:=1</label>
+			<nail x="-68" y="-68"/>
+			<nail x="-306" y="-68"/>
 		</transition>
 		<transition>
 			<source ref="id38"/>
 			<target ref="id36"/>
-			<nail x="-34" y="-119"/>
 		</transition>
 		<transition>
 			<source ref="id36"/>
 			<target ref="id38"/>
-			<label kind="synchronisation" x="25" y="-119">ChangeChannel?</label>
-			<label kind="assignment" x="34" y="-102">CurrentChannel:=SwitchToChannel,
+			<label kind="synchronisation" x="76" y="-76">ChangeChannel?</label>
+			<label kind="assignment" x="76" y="-59">CurrentChannel:=SwitchToChannel,
 SwitchToChannel:=-1</label>
-			<nail x="51" y="-85"/>
+			<nail x="68" y="0"/>
+			<nail x="68" y="-102"/>
 		</transition>
 		<transition>
 			<source ref="id37"/>
 			<target ref="id36"/>
-			<label kind="synchronisation" x="-212" y="59">FlowTvIncrementedChannel!</label>
-			<nail x="-127" y="59"/>
+			<label kind="synchronisation" x="-272" y="17">FlowTvIncrementedChannel!</label>
+			<nail x="-306" y="34"/>
+			<nail x="0" y="34"/>
 		</transition>
 		<transition>
 			<source ref="id36"/>
 			<target ref="id37"/>
-			<label kind="guard" x="-212" y="-25">CurrentChannel&lt;99</label>
-			<label kind="synchronisation" x="-246" y="-8">FlowTvIncrementChannel?</label>
-			<label kind="assignment" x="-280" y="9">CurrentChannel:=CurrentChannel+1</label>
-			<nail x="-144" y="17"/>
+			<label kind="guard" x="-272" y="-51">CurrentChannel&lt;99</label>
+			<label kind="synchronisation" x="-272" y="-34">FlowTvIncrementChannel?</label>
+			<label kind="assignment" x="-272" y="-17">CurrentChannel:=CurrentChannel+1</label>
 		</transition>
 	</template>
 	<template>
