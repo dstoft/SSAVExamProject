@@ -234,37 +234,38 @@ int InputIndex = 0;</declaration>
 		<location id="id25" x="340" y="34">
 		</location>
 		<location id="id26" x="102" y="170">
-			<name x="77" y="187">IncrementInput</name>
+			<name x="136" y="161">IncrementInput</name>
 		</location>
 		<location id="id27" x="-34" y="-68">
 			<name x="-17" y="-85">Initial</name>
 		</location>
-		<location id="id28" x="-340" y="-170">
-			<name x="-383" y="-204">IncrementChannelLoc</name>
+		<location id="id28" x="-306" y="-170">
+			<name x="-349" y="-204">IncrementChannelLoc</name>
 		</location>
-		<location id="id29" x="-578" y="-170">
-			<name x="-646" y="-204">IncrementChannelLoc2</name>
+		<location id="id29" x="-544" y="-170">
+			<name x="-603" y="-204">IncrementChannelLoc2</name>
 		</location>
-		<location id="id30" x="-340" y="-68">
-			<name x="-400" y="-59">IncrementChannelLoc3</name>
+		<location id="id30" x="-306" y="-68">
+			<name x="-366" y="-59">IncrementChannelLoc3</name>
 		</location>
 		<location id="id31" x="-34" y="-238">
 			<name x="-17" y="-263">ChannelButtonPress</name>
 			<label kind="invariant" x="-17" y="-246">ChannelPressTimer &lt; 1000</label>
 		</location>
-		<location id="id32" x="-102" y="-357">
-			<name x="-195" y="-391">ChannelButtonPress2</name>
+		<location id="id32" x="-102" y="-340">
+			<name x="-195" y="-374">ChannelButtonPress2</name>
 			<committed/>
 		</location>
-		<location id="id33" x="-204" y="59">
-			<name x="-247" y="67">OffState</name>
+		<location id="id33" x="-204" y="34">
+			<name x="-272" y="25">OffState</name>
 		</location>
 		<init ref="id33"/>
 		<transition>
 			<source ref="id19"/>
 			<target ref="id23"/>
-			<label kind="synchronisation" x="416" y="-119">AudioLevelChanged?</label>
-			<nail x="569" y="-102"/>
+			<label kind="synchronisation" x="382" y="-85">AudioLevelChanged?</label>
+			<nail x="569" y="-68"/>
+			<nail x="340" y="-68"/>
 		</transition>
 		<transition>
 			<source ref="id20"/>
@@ -280,9 +281,9 @@ int InputIndex = 0;</declaration>
 		<transition>
 			<source ref="id21"/>
 			<target ref="id23"/>
-			<label kind="synchronisation" x="416" y="-153">AudioLevelChanged?</label>
-			<nail x="612" y="-136"/>
-			<nail x="374" y="-136"/>
+			<label kind="synchronisation" x="382" y="-119">AudioLevelChanged?</label>
+			<nail x="612" y="-102"/>
+			<nail x="374" y="-102"/>
 		</transition>
 		<transition>
 			<source ref="id22"/>
@@ -305,9 +306,9 @@ int InputIndex = 0;</declaration>
 		<transition>
 			<source ref="id24"/>
 			<target ref="id23"/>
-			<label kind="synchronisation" x="416" y="-187">AudioLevelChanged?</label>
-			<nail x="646" y="-170"/>
-			<nail x="340" y="-170"/>
+			<label kind="synchronisation" x="382" y="-153">AudioLevelChanged?</label>
+			<nail x="646" y="-136"/>
+			<nail x="340" y="-136"/>
 		</transition>
 		<transition>
 			<source ref="id25"/>
@@ -323,44 +324,47 @@ int InputIndex = 0;</declaration>
 		<transition>
 			<source ref="id27"/>
 			<target ref="id26"/>
-			<label kind="guard" x="110" y="59">InputIndex &gt;= 2</label>
-			<label kind="synchronisation" x="110" y="76">TvIncrementInput?</label>
-			<label kind="assignment" x="110" y="93">InputIndex = 0</label>
+			<label kind="guard" x="110" y="85">InputIndex &gt;= 2</label>
+			<label kind="synchronisation" x="110" y="102">TvIncrementInput?</label>
+			<label kind="assignment" x="110" y="119">InputIndex = 0</label>
 			<nail x="102" y="34"/>
 		</transition>
 		<transition>
 			<source ref="id26"/>
 			<target ref="id27"/>
-			<label kind="synchronisation" x="-59" y="153">TvIncrementedInput!</label>
-			<nail x="-68" y="170"/>
+			<label kind="synchronisation" x="-42" y="187">TvIncrementedInput!</label>
+			<nail x="102" y="204"/>
+			<nail x="-68" y="204"/>
 			<nail x="-68" y="0"/>
 		</transition>
 		<transition>
 			<source ref="id27"/>
 			<target ref="id26"/>
-			<label kind="guard" x="-25" y="34">InputIndex &lt; 2</label>
-			<label kind="synchronisation" x="-25" y="51">TvIncrementInput?</label>
-			<label kind="assignment" x="-25" y="68">InputIndex++</label>
-			<nail x="-34" y="102"/>
+			<label kind="guard" x="-25" y="85">InputIndex &lt; 2</label>
+			<label kind="synchronisation" x="-25" y="102">TvIncrementInput?</label>
+			<label kind="assignment" x="-25" y="119">InputIndex++</label>
+			<nail x="-34" y="170"/>
 		</transition>
 		<transition>
 			<source ref="id31"/>
 			<target ref="id32"/>
-			<label kind="synchronisation" x="-25" y="-348">TvRegisterChannel?</label>
-			<label kind="assignment" x="-25" y="-331">SwitchToChannel:=(SwitchToChannel*10) + ChannelNumberPressed,
+			<label kind="synchronisation" x="-25" y="-331">TvRegisterChannel?</label>
+			<label kind="assignment" x="-25" y="-314">SwitchToChannel:=(SwitchToChannel*10) + ChannelNumberPressed,
 ChannelNumberPressed:=-1</label>
-			<nail x="-34" y="-357"/>
+			<nail x="-34" y="-340"/>
 		</transition>
 		<transition>
 			<source ref="id33"/>
 			<target ref="id27"/>
-			<label kind="synchronisation" x="-161" y="25">TurnTvOn?</label>
+			<label kind="synchronisation" x="-187" y="34">TurnTvOn?</label>
+			<nail x="-102" y="34"/>
+			<nail x="-102" y="-34"/>
 		</transition>
 		<transition>
 			<source ref="id27"/>
 			<target ref="id33"/>
-			<label kind="synchronisation" x="-280" y="8">TurnTvOff?</label>
-			<nail x="-204" y="-9"/>
+			<label kind="synchronisation" x="-272" y="-17">TurnTvOff?</label>
+			<nail x="-204" y="-34"/>
 		</transition>
 		<transition>
 			<source ref="id32"/>
@@ -383,22 +387,22 @@ ChannelNumberPressed:=-1</label>
 		<transition>
 			<source ref="id29"/>
 			<target ref="id30"/>
-			<label kind="synchronisation" x="-552" y="-85">FlowTvIncrementedChannel?</label>
+			<label kind="synchronisation" x="-518" y="-85">FlowTvIncrementedChannel?</label>
 		</transition>
 		<transition>
 			<source ref="id28"/>
 			<target ref="id29"/>
-			<label kind="synchronisation" x="-535" y="-187">FlowTvIncrementChannel!</label>
+			<label kind="synchronisation" x="-501" y="-187">FlowTvIncrementChannel!</label>
 		</transition>
 		<transition>
 			<source ref="id30"/>
 			<target ref="id27"/>
-			<label kind="synchronisation" x="-280" y="-85">TvIncrementedChannel!</label>
+			<label kind="synchronisation" x="-255" y="-85">TvIncrementedChannel!</label>
 		</transition>
 		<transition>
 			<source ref="id27"/>
 			<target ref="id28"/>
-			<label kind="synchronisation" x="-280" y="-170">TvIncrementChannel?</label>
+			<label kind="synchronisation" x="-255" y="-170">TvIncrementChannel?</label>
 		</transition>
 	</template>
 	<template>
