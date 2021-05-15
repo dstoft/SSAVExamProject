@@ -529,8 +529,8 @@ SwitchToChannel:=-1</label>
 		<location id="id42" x="238" y="204">
 			<name x="204" y="170">Initial</name>
 		</location>
-		<location id="id43" x="-25" y="272">
-			<name x="-178" y="255">IncrementChannelLoc</name>
+		<location id="id43" x="0" y="272">
+			<name x="-153" y="255">IncrementChannelLoc</name>
 		</location>
 		<location id="id44" x="43" y="-34">
 			<name x="1" y="-68">ChannelPress</name>
@@ -544,7 +544,7 @@ SwitchToChannel:=-1</label>
 			<target ref="id39"/>
 			<label kind="synchronisation" x="314" y="153">DecrementAudio!</label>
 			<nail x="306" y="170"/>
-			<nail x="612" y="170"/>
+			<nail x="646" y="170"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
@@ -675,16 +675,16 @@ SwitchToChannel:=-1</label>
 		<transition>
 			<source ref="id43"/>
 			<target ref="id42"/>
-			<label kind="synchronisation" x="0" y="272">ChannelIncremented?</label>
+			<label kind="synchronisation" x="17" y="272">ChannelIncremented?</label>
 			<nail x="136" y="272"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id43"/>
-			<label kind="synchronisation" x="0" y="238">IncrementChannel!</label>
+			<label kind="synchronisation" x="17" y="238">IncrementChannel!</label>
 			<nail x="161" y="229"/>
 			<nail x="136" y="238"/>
-			<nail x="-25" y="238"/>
+			<nail x="0" y="238"/>
 		</transition>
 	</template>
 	<system>// Place template instantiations here.
