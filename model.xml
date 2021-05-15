@@ -452,7 +452,7 @@ int Muted = -1;</declaration>
 		<transition>
 			<source ref="id34"/>
 			<target ref="id35"/>
-			<label kind="synchronisation" x="-238" y="76">AudioLevelChanged!</label>
+			<label kind="synchronisation" x="-238" y="68">AudioLevelChanged!</label>
 			<nail x="-272" y="68"/>
 			<nail x="-68" y="68"/>
 		</transition>
