@@ -514,153 +514,173 @@ SwitchToChannel:=-1</label>
 	<template>
 		<name x="5" y="5">User</name>
 		<declaration>// Place local declarations here.</declaration>
-		<location id="id39" x="399" y="-8">
+		<location id="id39" x="680" y="102">
 		</location>
-		<location id="id40" x="297" y="382">
-			<name x="272" y="391">CycleInput</name>
+		<location id="id40" x="442" y="306">
+			<name x="417" y="315">CycleInput</name>
 		</location>
-		<location id="id41" x="238" y="314">
-			<name x="204" y="323">OffState</name>
+		<location id="id41" x="238" y="374">
+			<name x="204" y="383">OffState</name>
 		</location>
-		<location id="id42" x="280" y="212">
-			<name x="229" y="195">Initial</name>
+		<location id="id42" x="238" y="204">
+			<name x="204" y="170">Initial</name>
 		</location>
-		<location id="id43" x="25" y="255">
-			<name x="-59" y="221">IncrementChannelLoc</name>
+		<location id="id43" x="-25" y="272">
+			<name x="-178" y="255">IncrementChannelLoc</name>
 		</location>
-		<location id="id44" x="93" y="-25">
-			<name x="-17" y="-34">ChannelPress</name>
+		<location id="id44" x="43" y="-34">
+			<name x="1" y="-68">ChannelPress</name>
 		</location>
-		<location id="id45" x="178" y="-76">
-			<name x="168" y="-110">ChannelPress2</name>
+		<location id="id45" x="238" y="-34">
+			<name x="255" y="-51">ChannelPress2</name>
 		</location>
 		<init ref="id41"/>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id39"/>
-			<label kind="synchronisation" x="280" y="42">DecrementAudio!</label>
-			<nail x="314" y="17"/>
+			<label kind="synchronisation" x="314" y="153">DecrementAudio!</label>
+			<nail x="306" y="170"/>
+			<nail x="612" y="170"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id39"/>
-			<label kind="synchronisation" x="255" y="25">IncrementAudio!</label>
-			<nail x="289" y="8"/>
+			<label kind="synchronisation" x="314" y="119">IncrementAudio!</label>
+			<nail x="306" y="136"/>
+			<nail x="612" y="136"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id39"/>
-			<label kind="synchronisation" x="238" y="8">Mute!</label>
-			<nail x="263" y="-8"/>
+			<label kind="synchronisation" x="314" y="85">Mute!</label>
+			<nail x="272" y="102"/>
 		</transition>
 		<transition>
 			<source ref="id39"/>
 			<target ref="id42"/>
-			<label kind="synchronisation" x="331" y="68">AudioChanged?</label>
-			<nail x="391" y="187"/>
+			<label kind="synchronisation" x="314" y="187">AudioChanged?</label>
+			<nail x="680" y="204"/>
+			<nail x="374" y="204"/>
 		</transition>
 		<transition>
 			<source ref="id40"/>
 			<target ref="id42"/>
-			<label kind="synchronisation" x="314" y="327">IncrementedInput?</label>
-			<nail x="331" y="306"/>
+			<label kind="synchronisation" x="314" y="221">IncrementedInput?</label>
+			<nail x="442" y="238"/>
+			<nail x="306" y="238"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id40"/>
-			<label kind="synchronisation" x="288" y="280">IncrementInput!</label>
+			<label kind="synchronisation" x="314" y="289">IncrementInput!</label>
+			<nail x="272" y="272"/>
+			<nail x="272" y="306"/>
 		</transition>
 		<transition>
 			<source ref="id41"/>
 			<target ref="id42"/>
-			<label kind="synchronisation" x="259" y="246">UserTurnTvOn!</label>
+			<label kind="synchronisation" x="246" y="323">UserTurnTvOn!</label>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id41"/>
-			<label kind="synchronisation" x="127" y="272">UserTurnTvOff!</label>
-			<nail x="229" y="280"/>
+			<label kind="synchronisation" x="110" y="323">UserTurnTvOff!</label>
+			<nail x="204" y="272"/>
+			<nail x="204" y="374"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-127" y="153">NextChannelNumberPressed:=0</label>
-			<nail x="8" y="68"/>
+			<label kind="assignment" x="-229" y="153">NextChannelNumberPressed:=0</label>
+			<nail x="-25" y="204"/>
+			<nail x="-25" y="-34"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-119" y="136">NextChannelNumberPressed:=9</label>
-			<nail x="25" y="68"/>
+			<label kind="assignment" x="-229" y="136">NextChannelNumberPressed:=9</label>
+			<nail x="-25" y="195"/>
+			<nail x="-25" y="-17"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-110" y="119">NextChannelNumberPressed:=8</label>
-			<nail x="42" y="68"/>
+			<label kind="assignment" x="-229" y="119">NextChannelNumberPressed:=8</label>
+			<nail x="-25" y="187"/>
+			<nail x="-25" y="-26"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-102" y="102">NextChannelNumberPressed:=7</label>
-			<nail x="59" y="68"/>
+			<label kind="assignment" x="-229" y="102">NextChannelNumberPressed:=7</label>
+			<nail x="-25" y="178"/>
+			<nail x="-25" y="-9"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-93" y="85">NextChannelNumberPressed:=6</label>
-			<nail x="76" y="68"/>
+			<label kind="assignment" x="-229" y="85">NextChannelNumberPressed:=6</label>
+			<nail x="-25" y="170"/>
+			<nail x="-25" y="0"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-85" y="68">NextChannelNumberPressed:=5</label>
-			<nail x="93" y="68"/>
+			<label kind="assignment" x="-229" y="68">NextChannelNumberPressed:=5</label>
+			<nail x="-25" y="161"/>
+			<nail x="-25" y="8"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-76" y="51">NextChannelNumberPressed:=4</label>
-			<nail x="110" y="68"/>
+			<label kind="assignment" x="-229" y="51">NextChannelNumberPressed:=4</label>
+			<nail x="-25" y="153"/>
+			<nail x="-25" y="17"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-68" y="34">NextChannelNumberPressed:=3</label>
-			<nail x="127" y="59"/>
+			<label kind="assignment" x="-229" y="34">NextChannelNumberPressed:=3</label>
+			<nail x="-25" y="144"/>
+			<nail x="-25" y="25"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-59" y="17">NextChannelNumberPressed:=2</label>
-			<nail x="144" y="59"/>
+			<label kind="assignment" x="-229" y="17">NextChannelNumberPressed:=2</label>
+			<nail x="-25" y="136"/>
+			<nail x="-25" y="34"/>
 		</transition>
 		<transition>
 			<source ref="id45"/>
 			<target ref="id42"/>
-			<label kind="synchronisation" x="161" y="-51">ChannelSwitched?</label>
+			<label kind="synchronisation" x="246" y="51">ChannelSwitched?</label>
 		</transition>
 		<transition>
 			<source ref="id44"/>
 			<target ref="id45"/>
-			<label kind="synchronisation" x="34" y="-76">ChannelPressed!</label>
+			<label kind="synchronisation" x="85" y="-51">ChannelPressed!</label>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-51" y="0">NextChannelNumberPressed:=1</label>
+			<label kind="assignment" x="-229" y="1">NextChannelNumberPressed:=1</label>
+			<nail x="-25" y="127"/>
+			<nail x="-25" y="42"/>
 		</transition>
 		<transition>
 			<source ref="id43"/>
 			<target ref="id42"/>
-			<label kind="synchronisation" x="76" y="238">ChannelIncremented?</label>
-			<nail x="153" y="263"/>
+			<label kind="synchronisation" x="0" y="272">ChannelIncremented?</label>
+			<nail x="136" y="272"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id43"/>
-			<label kind="synchronisation" x="76" y="195">IncrementChannel!</label>
-			<nail x="127" y="221"/>
+			<label kind="synchronisation" x="0" y="238">IncrementChannel!</label>
+			<nail x="161" y="229"/>
+			<nail x="136" y="238"/>
+			<nail x="-25" y="238"/>
 		</transition>
 	</template>
 	<system>// Place template instantiations here.
