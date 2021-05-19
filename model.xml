@@ -29,6 +29,7 @@ int SwitchToChannel = -1;
 		<location id="id2" x="510" y="34">
 		</location>
 		<location id="id3" x="306" y="34">
+			<name x="296" y="0">IncrementAudioLoc</name>
 		</location>
 		<location id="id4" x="544" y="68">
 		</location>
@@ -220,8 +221,10 @@ NextChannelNumberPressed:=-1</label>
 
 int InputIndex = 0;</declaration>
 		<location id="id19" x="569" y="-34">
+			<name x="433" y="-34">IncrementAudioLoc2</name>
 		</location>
 		<location id="id20" x="340" y="-34">
+			<name x="212" y="-34">IncrementAudioLoc</name>
 		</location>
 		<location id="id21" x="612" y="0">
 		</location>
@@ -407,11 +410,13 @@ ChannelNumberPressed:=-1</label>
 	</template>
 	<template>
 		<name>Audio</name>
-		<declaration>int AudioLevel = 10;
+		<declaration>int AudioLevel = 3;
 int Muted = -1;</declaration>
 		<location id="id34" x="-340" y="0">
+			<name x="-467" y="-25">AudioChangedLoc</name>
 		</location>
 		<location id="id35" x="0" y="0">
+			<name x="8" y="-25">Initial</name>
 		</location>
 		<init ref="id35"/>
 		<transition>
@@ -425,9 +430,9 @@ int Muted = -1;</declaration>
 		<transition>
 			<source ref="id35"/>
 			<target ref="id34"/>
-			<label kind="guard" x="-238" y="170">AudioLevel &gt;= 100</label>
+			<label kind="guard" x="-238" y="170">AudioLevel &gt;= 10</label>
 			<label kind="synchronisation" x="-238" y="187">AudioIncrementLevel?</label>
-			<label kind="assignment" x="-238" y="204">AudioLevel:=100, Muted:=-1</label>
+			<label kind="assignment" x="-238" y="204">AudioLevel:=10, Muted:=-1</label>
 			<nail x="0" y="170"/>
 			<nail x="-340" y="170"/>
 		</transition>
@@ -459,33 +464,35 @@ int Muted = -1;</declaration>
 		<transition>
 			<source ref="id35"/>
 			<target ref="id34"/>
-			<label kind="guard" x="-238" y="0">AudioLevel &lt; 100</label>
+			<label kind="guard" x="-238" y="0">AudioLevel &lt; 10</label>
 			<label kind="synchronisation" x="-238" y="17">AudioIncrementLevel?</label>
 			<label kind="assignment" x="-238" y="34">AudioLevel++, Muted:=-1</label>
 		</transition>
 	</template>
 	<template>
 		<name>FlowTv</name>
-		<declaration>int CurrentChannel = 0;</declaration>
+		<declaration>int CurrentChannel = 0;
+int PreviousChannel = 0;</declaration>
 		<location id="id36" x="0" y="0">
 			<name x="8" y="-25">Initial</name>
 		</location>
 		<location id="id37" x="-306" y="0">
 			<name x="-459" y="-17">IncrementChannelLoc</name>
 		</location>
-		<location id="id38" x="0" y="-102">
-			<name x="-59" y="-136">ButtonChannelChange</name>
+		<location id="id38" x="0" y="-119">
+			<name x="-59" y="-153">ButtonChannelChange</name>
 			<committed/>
 		</location>
 		<init ref="id36"/>
 		<transition>
 			<source ref="id36"/>
 			<target ref="id37"/>
-			<label kind="guard" x="-272" y="-119">CurrentChannel&gt;=99</label>
-			<label kind="synchronisation" x="-272" y="-102">FlowTvIncrementChannel?</label>
-			<label kind="assignment" x="-272" y="-85">CurrentChannel:=1</label>
-			<nail x="-68" y="-68"/>
-			<nail x="-306" y="-68"/>
+			<label kind="guard" x="-272" y="-161">CurrentChannel&gt;=99</label>
+			<label kind="synchronisation" x="-272" y="-144">FlowTvIncrementChannel?</label>
+			<label kind="assignment" x="-272" y="-127">PreviousChannel:=CurrentChannel,
+CurrentChannel:=1</label>
+			<nail x="-68" y="-85"/>
+			<nail x="-306" y="-85"/>
 		</transition>
 		<transition>
 			<source ref="id38"/>
@@ -495,10 +502,11 @@ int Muted = -1;</declaration>
 			<source ref="id36"/>
 			<target ref="id38"/>
 			<label kind="synchronisation" x="76" y="-76">ChangeChannel?</label>
-			<label kind="assignment" x="76" y="-59">CurrentChannel:=SwitchToChannel,
+			<label kind="assignment" x="76" y="-59">PreviousChannel:=CurrentChannel,
+CurrentChannel:=SwitchToChannel,
 SwitchToChannel:=-1</label>
 			<nail x="68" y="0"/>
-			<nail x="68" y="-102"/>
+			<nail x="68" y="-119"/>
 		</transition>
 		<transition>
 			<source ref="id37"/>
@@ -510,15 +518,17 @@ SwitchToChannel:=-1</label>
 		<transition>
 			<source ref="id36"/>
 			<target ref="id37"/>
-			<label kind="guard" x="-272" y="-51">CurrentChannel&lt;99</label>
-			<label kind="synchronisation" x="-272" y="-34">FlowTvIncrementChannel?</label>
-			<label kind="assignment" x="-272" y="-17">CurrentChannel:=CurrentChannel+1</label>
+			<label kind="guard" x="-272" y="-76">CurrentChannel&lt;99</label>
+			<label kind="synchronisation" x="-272" y="-59">FlowTvIncrementChannel?</label>
+			<label kind="assignment" x="-272" y="-42">PreviousChannel:=CurrentChannel,
+CurrentChannel:=CurrentChannel+1</label>
 		</transition>
 	</template>
 	<template>
 		<name x="5" y="5">User</name>
 		<declaration>// Place local declarations here.</declaration>
 		<location id="id39" x="680" y="102">
+			<name x="629" y="68">AudioChangedLoc</name>
 		</location>
 		<location id="id40" x="442" y="306">
 			<name x="417" y="315">CycleInput</name>
@@ -595,63 +605,14 @@ SwitchToChannel:=-1</label>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-229" y="153">NextChannelNumberPressed:=0</label>
-			<nail x="-25" y="204"/>
-			<nail x="-25" y="-34"/>
-		</transition>
-		<transition>
-			<source ref="id42"/>
-			<target ref="id44"/>
-			<label kind="assignment" x="-229" y="136">NextChannelNumberPressed:=9</label>
-			<nail x="-25" y="195"/>
-			<nail x="-25" y="-17"/>
-		</transition>
-		<transition>
-			<source ref="id42"/>
-			<target ref="id44"/>
-			<label kind="assignment" x="-229" y="119">NextChannelNumberPressed:=8</label>
-			<nail x="-25" y="187"/>
-			<nail x="-25" y="-26"/>
-		</transition>
-		<transition>
-			<source ref="id42"/>
-			<target ref="id44"/>
-			<label kind="assignment" x="-229" y="102">NextChannelNumberPressed:=7</label>
-			<nail x="-25" y="178"/>
-			<nail x="-25" y="-9"/>
-		</transition>
-		<transition>
-			<source ref="id42"/>
-			<target ref="id44"/>
-			<label kind="assignment" x="-229" y="85">NextChannelNumberPressed:=6</label>
-			<nail x="-25" y="170"/>
-			<nail x="-25" y="0"/>
-		</transition>
-		<transition>
-			<source ref="id42"/>
-			<target ref="id44"/>
-			<label kind="assignment" x="-229" y="68">NextChannelNumberPressed:=5</label>
-			<nail x="-25" y="161"/>
-			<nail x="-25" y="8"/>
-		</transition>
-		<transition>
-			<source ref="id42"/>
-			<target ref="id44"/>
-			<label kind="assignment" x="-229" y="51">NextChannelNumberPressed:=4</label>
-			<nail x="-25" y="153"/>
-			<nail x="-25" y="17"/>
-		</transition>
-		<transition>
-			<source ref="id42"/>
-			<target ref="id44"/>
-			<label kind="assignment" x="-229" y="34">NextChannelNumberPressed:=3</label>
+			<label kind="assignment" x="-229" y="85">NextChannelNumberPressed:=3</label>
 			<nail x="-25" y="144"/>
 			<nail x="-25" y="25"/>
 		</transition>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-229" y="17">NextChannelNumberPressed:=2</label>
+			<label kind="assignment" x="-229" y="68">NextChannelNumberPressed:=2</label>
 			<nail x="-25" y="136"/>
 			<nail x="-25" y="34"/>
 		</transition>
@@ -668,7 +629,7 @@ SwitchToChannel:=-1</label>
 		<transition>
 			<source ref="id42"/>
 			<target ref="id44"/>
-			<label kind="assignment" x="-229" y="1">NextChannelNumberPressed:=1</label>
+			<label kind="assignment" x="-229" y="52">NextChannelNumberPressed:=1</label>
 			<nail x="-25" y="127"/>
 			<nail x="-25" y="42"/>
 		</transition>
@@ -694,7 +655,15 @@ system Remote, User, TvController, FlowTv, Audio;
     </system>
 	<queries>
 		<query>
-			<formula></formula>
+			<formula>A[] TvController.IncrementChannelLoc2 imply ((FlowTv.CurrentChannel &gt; FlowTv.PreviousChannel) or (FlowTv.CurrentChannel == 1))</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>A[] TvController.IncrementAudioLoc2 and Audio.AudioLevel &lt; 50 imply Audio.AudioChangedLoc</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>A&lt;&gt; (TvController.OffState and User.Initial) imply TvController.Initial</formula>
 			<comment></comment>
 		</query>
 		<query>
