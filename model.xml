@@ -33,19 +33,25 @@ int SwitchToChannel = -1;
 			<name x="-442" y="-42">DecrementChannelLoc</name>
 		</location>
 		<location id="id3" x="476" y="0">
+			<name x="408" y="0">MuteLoc2</name>
 		</location>
 		<location id="id4" x="306" y="0">
+			<name x="246" y="0">MuteLoc</name>
 		</location>
 		<location id="id5" x="510" y="34">
+			<name x="374" y="34">IncrementAudioLoc2</name>
 		</location>
 		<location id="id6" x="306" y="34">
-			<name x="296" y="0">IncrementAudioLoc</name>
+			<name x="178" y="34">IncrementAudioLoc</name>
 		</location>
 		<location id="id7" x="544" y="68">
+			<name x="399" y="68">DecrementAudioLoc2</name>
 		</location>
 		<location id="id8" x="306" y="68">
+			<name x="170" y="68">DecrementAudioLoc</name>
 		</location>
 		<location id="id9" x="442" y="-68">
+			<name x="323" y="-59">AudioChangedLoc</name>
 		</location>
 		<location id="id10" x="170" y="136">
 			<name x="187" y="127">IncrementInputLoc3</name>
@@ -76,11 +82,14 @@ int SwitchToChannel = -1;
 			<name x="-34" y="-238">ChannelPress</name>
 		</location>
 		<location id="id19" x="-340" y="34">
+			<name x="-425" y="25">ToOffState</name>
 			<committed/>
 		</location>
 		<location id="id20" x="-340" y="136">
+			<name x="-408" y="127">OffState</name>
 		</location>
 		<location id="id21" x="-170" y="136">
+			<name x="-204" y="144">ToOnState</name>
 			<committed/>
 		</location>
 		<init ref="id20"/>
@@ -271,14 +280,19 @@ int InputIndex = 0;</declaration>
 			<name x="212" y="-34">IncrementAudioLoc</name>
 		</location>
 		<location id="id27" x="612" y="0">
+			<name x="467" y="0">DecrementAudioLoc2</name>
 		</location>
 		<location id="id28" x="340" y="0">
+			<name x="204" y="0">DecrementAudioLoc</name>
 		</location>
 		<location id="id29" x="340" y="-102">
+			<name x="212" y="-93">AudioChangedLoc</name>
 		</location>
 		<location id="id30" x="646" y="34">
+			<name x="578" y="42">MuteLoc2</name>
 		</location>
 		<location id="id31" x="340" y="34">
+			<name x="280" y="34">MuteLoc</name>
 		</location>
 		<location id="id32" x="102" y="170">
 			<name x="136" y="161">IncrementInput</name>
@@ -546,6 +560,7 @@ int Muted = -1;</declaration>
 		<declaration>int CurrentChannel = 1;
 int PreviousChannel = 1;</declaration>
 		<location id="id42" x="-306" y="144">
+			<name x="-459" y="144">DecrementChannelLoc</name>
 		</location>
 		<location id="id43" x="0" y="0">
 			<name x="8" y="-25">Initial</name>
