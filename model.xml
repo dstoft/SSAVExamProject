@@ -497,6 +497,7 @@ ChannelNumberPressed:=-1</label>
 	<template>
 		<name>Audio</name>
 		<declaration>int AudioLevel = 3;
+int PreviousAudioLevel = 3;
 int Muted = -1;</declaration>
 		<location id="id40" x="-340" y="0">
 			<name x="-467" y="-25">AudioChangedLoc</name>
@@ -508,51 +509,55 @@ int Muted = -1;</declaration>
 		<transition>
 			<source ref="id41"/>
 			<target ref="id40"/>
-			<label kind="synchronisation" x="-238" y="-110">AudioMute?</label>
-			<label kind="assignment" x="-238" y="-93">Muted:= Muted * -1</label>
-			<nail x="0" y="-110"/>
-			<nail x="-340" y="-110"/>
+			<label kind="synchronisation" x="-238" y="-127">AudioMute?</label>
+			<label kind="assignment" x="-238" y="-110">Muted:= Muted * -1</label>
+			<nail x="0" y="-127"/>
+			<nail x="-340" y="-127"/>
 		</transition>
 		<transition>
 			<source ref="id41"/>
 			<target ref="id40"/>
-			<label kind="guard" x="-238" y="170">AudioLevel &gt;= 10</label>
-			<label kind="synchronisation" x="-238" y="187">AudioIncrementLevel?</label>
-			<label kind="assignment" x="-238" y="204">AudioLevel:=10, Muted:=-1</label>
-			<nail x="0" y="170"/>
-			<nail x="-340" y="170"/>
+			<label kind="guard" x="-238" y="204">AudioLevel &gt;= 10</label>
+			<label kind="synchronisation" x="-238" y="221">AudioIncrementLevel?</label>
+			<label kind="assignment" x="-238" y="238">PreviousAudioLevel:=AudioLevel,
+AudioLevel:=10, Muted:=-1</label>
+			<nail x="0" y="204"/>
+			<nail x="-340" y="204"/>
 		</transition>
 		<transition>
 			<source ref="id41"/>
 			<target ref="id40"/>
-			<label kind="guard" x="-238" y="103">AudioLevel &lt;= 0</label>
-			<label kind="synchronisation" x="-238" y="119">AudioDecrementLevel?</label>
-			<label kind="assignment" x="-238" y="136">AudioLevel:=0, Muted:=-1</label>
-			<nail x="-34" y="102"/>
-			<nail x="-306" y="102"/>
+			<label kind="guard" x="-238" y="120">AudioLevel &lt;= 0</label>
+			<label kind="synchronisation" x="-238" y="136">AudioDecrementLevel?</label>
+			<label kind="assignment" x="-238" y="153">PreviousAudioLevel:=AudioLevel,
+AudioLevel:=0, Muted:=-1</label>
+			<nail x="-34" y="119"/>
+			<nail x="-306" y="119"/>
 		</transition>
 		<transition>
 			<source ref="id41"/>
 			<target ref="id40"/>
-			<label kind="guard" x="-238" y="-68">AudioLevel &gt; 0</label>
-			<label kind="synchronisation" x="-238" y="-51">AudioDecrementLevel?</label>
-			<label kind="assignment" x="-238" y="-34">AudioLevel--, Muted:=-1</label>
-			<nail x="-34" y="-68"/>
-			<nail x="-306" y="-68"/>
+			<label kind="guard" x="-238" y="-85">AudioLevel &gt; 0</label>
+			<label kind="synchronisation" x="-238" y="-68">AudioDecrementLevel?</label>
+			<label kind="assignment" x="-238" y="-51">PreviousAudioLevel:=AudioLevel,
+AudioLevel--, Muted:=-1</label>
+			<nail x="-34" y="-85"/>
+			<nail x="-306" y="-85"/>
 		</transition>
 		<transition>
 			<source ref="id40"/>
 			<target ref="id41"/>
-			<label kind="synchronisation" x="-238" y="68">AudioLevelChanged!</label>
-			<nail x="-272" y="68"/>
-			<nail x="-68" y="68"/>
+			<label kind="synchronisation" x="-238" y="85">AudioLevelChanged!</label>
+			<nail x="-272" y="85"/>
+			<nail x="-68" y="85"/>
 		</transition>
 		<transition>
 			<source ref="id41"/>
 			<target ref="id40"/>
 			<label kind="guard" x="-238" y="0">AudioLevel &lt; 10</label>
 			<label kind="synchronisation" x="-238" y="17">AudioIncrementLevel?</label>
-			<label kind="assignment" x="-238" y="34">AudioLevel++, Muted:=-1</label>
+			<label kind="assignment" x="-238" y="34">PreviousAudioLevel:=AudioLevel,
+AudioLevel++, Muted:=-1</label>
 		</transition>
 	</template>
 	<template>
@@ -736,13 +741,6 @@ CurrentChannel:=CurrentChannel+1</label>
 		<transition>
 			<source ref="id50"/>
 			<target ref="id52"/>
-			<label kind="assignment" x="-229" y="85">NextChannelNumberPressed:=3</label>
-			<nail x="-25" y="144"/>
-			<nail x="-25" y="25"/>
-		</transition>
-		<transition>
-			<source ref="id50"/>
-			<target ref="id52"/>
 			<label kind="assignment" x="-229" y="68">NextChannelNumberPressed:=2</label>
 			<nail x="-25" y="136"/>
 			<nail x="-25" y="34"/>
@@ -786,7 +784,47 @@ system Remote, User, TvController, FlowTv, Audio;
     </system>
 	<queries>
 		<query>
-			<formula>A[] TvController.IncrementChannelLoc2 imply ((FlowTv.CurrentChannel &gt; FlowTv.PreviousChannel) or (FlowTv.CurrentChannel == 1))</formula>
+			<formula>A&lt;&gt; TvController.IncrementChannelLoc and FlowTv.CurrentChannel == 99 imply (FlowTv.IncrementChannelLoc and FlowTv.CurrentChannel == 1)</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; TvController.InputIndex == 2</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; TvController.InputIndex == 1</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; TvController.InputIndex == 0</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; TvController.ChannelButtonPress2 and TvController.ChannelPressTimer &lt; 1000 imply SwitchToChannel &gt; 9</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>A[] Audio.AudioLevel &gt;= 0</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>A[] TvController.DecrementAudioLoc2 and Audio.AudioLevel &gt; 0 imply Audio.AudioLevel &lt; Audio.PreviousAudioLevel</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>A[] Audio.AudioLevel &lt;= 10</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>A[] TvController.IncrementAudioLoc2 and Audio.AudioLevel &lt; 10 imply Audio.AudioLevel &gt; Audio.PreviousAudioLevel</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>A[] TvController.DecrementChannelLoc2 imply (FlowTv.CurrentChannel &lt; FlowTv.PreviousChannel) or (FlowTv.CurrentChannel == 99 and FlowTv.PreviousChannel == 1)</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>A[] TvController.IncrementChannelLoc2 imply ((FlowTv.CurrentChannel &gt; FlowTv.PreviousChannel) or (FlowTv.CurrentChannel == 1 and FlowTv.PreviousChannel == 99))</formula>
 			<comment></comment>
 		</query>
 		<query>
