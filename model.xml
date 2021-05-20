@@ -497,7 +497,7 @@ ChannelNumberPressed:=-1</label>
 	<template>
 		<name>Audio</name>
 		<declaration>int AudioLevel = 3;
-int PreviousAudioLevel = 3;
+int PreviousAudioLevel = -1;
 int Muted = -1;</declaration>
 		<location id="id40" x="-340" y="0">
 			<name x="-467" y="-25">AudioChangedLoc</name>
@@ -509,10 +509,23 @@ int Muted = -1;</declaration>
 		<transition>
 			<source ref="id41"/>
 			<target ref="id40"/>
-			<label kind="synchronisation" x="-238" y="-127">AudioMute?</label>
-			<label kind="assignment" x="-238" y="-110">Muted:= Muted * -1</label>
-			<nail x="0" y="-127"/>
-			<nail x="-340" y="-127"/>
+			<label kind="guard" x="-322" y="-229">Muted &lt; 0</label>
+			<label kind="synchronisation" x="-322" y="-212">AudioMute?</label>
+			<label kind="assignment" x="-322" y="-195">Muted:=1,
+PreviousAudioLevel:=AudioLevel,
+AudioLevel:=0</label>
+			<nail x="0" y="-195"/>
+			<nail x="-340" y="-195"/>
+		</transition>
+		<transition>
+			<source ref="id41"/>
+			<target ref="id40"/>
+			<label kind="guard" x="-144" y="-136">Muted &gt; 0</label>
+			<label kind="synchronisation" x="-238" y="-144">AudioMute?</label>
+			<label kind="assignment" x="-238" y="-127">Muted:= -1,
+AudioLevel:=PreviousAudioLevel</label>
+			<nail x="-17" y="-144"/>
+			<nail x="-323" y="-144"/>
 		</transition>
 		<transition>
 			<source ref="id41"/>
@@ -563,7 +576,8 @@ AudioLevel++, Muted:=-1</label>
 	<template>
 		<name>FlowTv</name>
 		<declaration>int CurrentChannel = 1;
-int PreviousChannel = 1;</declaration>
+int PreviousChannel = 1;
+int MaxChannel = 23;</declaration>
 		<location id="id42" x="-306" y="144">
 			<name x="-459" y="144">DecrementChannelLoc</name>
 		</location>
@@ -584,7 +598,7 @@ int PreviousChannel = 1;</declaration>
 			<label kind="guard" x="-289" y="161">CurrentChannel&lt;=1</label>
 			<label kind="synchronisation" x="-289" y="178">FlowTvChannelDown?</label>
 			<label kind="assignment" x="-289" y="195">PreviousChannel:=CurrentChannel,
-CurrentChannel:=99</label>
+CurrentChannel:=MaxChannel</label>
 			<nail x="-8" y="238"/>
 			<nail x="-306" y="238"/>
 		</transition>
@@ -607,7 +621,7 @@ CurrentChannel:=CurrentChannel-1</label>
 		<transition>
 			<source ref="id43"/>
 			<target ref="id44"/>
-			<label kind="guard" x="-272" y="-161">CurrentChannel&gt;=99</label>
+			<label kind="guard" x="-272" y="-161">CurrentChannel&gt;=MaxChannel</label>
 			<label kind="synchronisation" x="-272" y="-144">FlowTvIncrementChannel?</label>
 			<label kind="assignment" x="-272" y="-127">PreviousChannel:=CurrentChannel,
 CurrentChannel:=1</label>
@@ -638,7 +652,7 @@ SwitchToChannel:=-1</label>
 		<transition>
 			<source ref="id43"/>
 			<target ref="id44"/>
-			<label kind="guard" x="-272" y="-76">CurrentChannel&lt;99</label>
+			<label kind="guard" x="-272" y="-76">CurrentChannel&lt;MaxChannel</label>
 			<label kind="synchronisation" x="-272" y="-59">FlowTvIncrementChannel?</label>
 			<label kind="assignment" x="-272" y="-42">PreviousChannel:=CurrentChannel,
 CurrentChannel:=CurrentChannel+1</label>
@@ -758,7 +772,7 @@ CurrentChannel:=CurrentChannel+1</label>
 		<transition>
 			<source ref="id50"/>
 			<target ref="id52"/>
-			<label kind="assignment" x="-229" y="52">NextChannelNumberPressed:=1</label>
+			<label kind="assignment" x="-229" y="34">NextChannelNumberPressed:=1</label>
 			<nail x="-25" y="127"/>
 			<nail x="-25" y="42"/>
 		</transition>
@@ -784,60 +798,64 @@ system Remote, User, TvController, FlowTv, Audio;
     </system>
 	<queries>
 		<query>
-			<formula>A&lt;&gt; User.IncrementChannelLoc and FlowTv.CurrentChannel == 99 imply FlowTv.IncrementChannelLoc and FlowTv.CurrentChannel == 1</formula>
-			<comment></comment>
+			<formula>A&lt;&gt; User.AudioChangedLoc and Remote.MuteLoc and Audio.AudioLevel == 0 and Audio.Muted &gt; 0 imply Audio.AudioLevel == Audio.PreviousAudioLevel</formula>
+			<comment>f9.</comment>
+		</query>
+		<query>
+			<formula>A&lt;&gt; User.AudioChangedLoc and Remote.MuteLoc and Audio.AudioLevel &gt; 0 and Audio.Muted &lt; 0 imply Audio.AudioLevel == 0</formula>
+			<comment>f8.</comment>
 		</query>
 		<query>
 			<formula>E&lt;&gt; TvController.InputIndex == 2</formula>
-			<comment>4.</comment>
+			<comment>f4.</comment>
 		</query>
 		<query>
 			<formula>E&lt;&gt; TvController.InputIndex == 1</formula>
-			<comment>4.</comment>
+			<comment>f4.</comment>
 		</query>
 		<query>
 			<formula>E&lt;&gt; TvController.InputIndex == 0</formula>
-			<comment>4.</comment>
+			<comment>f4.</comment>
 		</query>
 		<query>
 			<formula>A[] TvController.ChannelButtonPress2 and User.ChannelPress and Remote.ChannelPress and TvController.ChannelPressTimer &lt; 1000 imply SwitchToChannel &gt; 9</formula>
-			<comment>3. </comment>
+			<comment>n4. </comment>
 		</query>
 		<query>
 			<formula>A[] Audio.AudioLevel &gt;= 0</formula>
-			<comment>1. and 2.</comment>
+			<comment>f2.</comment>
 		</query>
 		<query>
-			<formula>A&lt;&gt; User.AudioChangedLoc and Remote.IncrementAudioLoc and Audio.AudioLevel &gt; 0 imply Audio.AudioLevel &lt; Audio.PreviousAudioLevel</formula>
-			<comment></comment>
+			<formula>A&lt;&gt; User.AudioChangedLoc and Remote.DecrementAudioLoc and Audio.AudioLevel &gt; 0 imply Audio.AudioLevel &lt; Audio.PreviousAudioLevel</formula>
+			<comment>f1</comment>
 		</query>
 		<query>
 			<formula>A[] Audio.AudioLevel &lt;= 10</formula>
-			<comment>1. and 2.</comment>
+			<comment>f2.</comment>
 		</query>
 		<query>
 			<formula>A&lt;&gt; User.AudioChangedLoc and Remote.IncrementAudioLoc and Audio.AudioLevel &lt; 10 imply Audio.AudioLevel &gt; Audio.PreviousAudioLevel</formula>
-			<comment></comment>
+			<comment>f2</comment>
 		</query>
 		<query>
 			<formula>A&lt;&gt; User.DecrementChannelLoc imply FlowTv.DecrementChannelLoc and ((FlowTv.CurrentChannel &lt; FlowTv.PreviousChannel) or (FlowTv.CurrentChannel == 99 and FlowTv.PreviousChannel == 1))</formula>
-			<comment>5.</comment>
+			<comment>f5. and f6.</comment>
 		</query>
 		<query>
 			<formula>A&lt;&gt; User.IncrementChannelLoc imply FlowTv.IncrementChannelLoc and ((FlowTv.CurrentChannel &gt; FlowTv.PreviousChannel) or (FlowTv.CurrentChannel == 1 and FlowTv.PreviousChannel == 99))</formula>
-			<comment>5.</comment>
+			<comment>f5. and f6.</comment>
 		</query>
 		<query>
 			<formula>(TvController.OffState and User.Initial) --&gt; TvController.Initial</formula>
-			<comment></comment>
+			<comment>f7 and n7</comment>
 		</query>
 		<query>
 			<formula>E&lt;&gt; SwitchToChannel &gt; 9</formula>
-			<comment></comment>
+			<comment>f3. </comment>
 		</query>
 		<query>
-			<formula>A[] FlowTv.CurrentChannel &lt; 100</formula>
-			<comment></comment>
+			<formula>A[] FlowTv.CurrentChannel &lt; 24 and FlowTv.CurrentChannel &gt; 0</formula>
+			<comment>f3</comment>
 		</query>
 	</queries>
 </nta>
