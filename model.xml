@@ -789,23 +789,23 @@ system Remote, User, TvController, FlowTv, Audio;
 		</query>
 		<query>
 			<formula>E&lt;&gt; TvController.InputIndex == 2</formula>
-			<comment></comment>
+			<comment>4.</comment>
 		</query>
 		<query>
 			<formula>E&lt;&gt; TvController.InputIndex == 1</formula>
-			<comment></comment>
+			<comment>4.</comment>
 		</query>
 		<query>
 			<formula>E&lt;&gt; TvController.InputIndex == 0</formula>
-			<comment></comment>
+			<comment>4.</comment>
 		</query>
 		<query>
-			<formula>E&lt;&gt; TvController.ChannelButtonPress2 and TvController.ChannelPressTimer &lt; 1000 imply SwitchToChannel &gt; 9</formula>
-			<comment></comment>
+			<formula>A[] TvController.ChannelButtonPress2 and User.ChannelPress and Remote.ChannelPress and TvController.ChannelPressTimer &lt; 1000 imply SwitchToChannel &gt; 9</formula>
+			<comment>3. </comment>
 		</query>
 		<query>
 			<formula>A[] Audio.AudioLevel &gt;= 0</formula>
-			<comment></comment>
+			<comment>1. and 2.</comment>
 		</query>
 		<query>
 			<formula>A&lt;&gt; User.AudioChangedLoc and Remote.IncrementAudioLoc and Audio.AudioLevel &gt; 0 imply Audio.AudioLevel &lt; Audio.PreviousAudioLevel</formula>
@@ -813,7 +813,7 @@ system Remote, User, TvController, FlowTv, Audio;
 		</query>
 		<query>
 			<formula>A[] Audio.AudioLevel &lt;= 10</formula>
-			<comment></comment>
+			<comment>1. and 2.</comment>
 		</query>
 		<query>
 			<formula>A&lt;&gt; User.AudioChangedLoc and Remote.IncrementAudioLoc and Audio.AudioLevel &lt; 10 imply Audio.AudioLevel &gt; Audio.PreviousAudioLevel</formula>
@@ -821,11 +821,11 @@ system Remote, User, TvController, FlowTv, Audio;
 		</query>
 		<query>
 			<formula>A&lt;&gt; User.DecrementChannelLoc imply FlowTv.DecrementChannelLoc and ((FlowTv.CurrentChannel &lt; FlowTv.PreviousChannel) or (FlowTv.CurrentChannel == 99 and FlowTv.PreviousChannel == 1))</formula>
-			<comment></comment>
+			<comment>5.</comment>
 		</query>
 		<query>
 			<formula>A&lt;&gt; User.IncrementChannelLoc imply FlowTv.IncrementChannelLoc and ((FlowTv.CurrentChannel &gt; FlowTv.PreviousChannel) or (FlowTv.CurrentChannel == 1 and FlowTv.PreviousChannel == 99))</formula>
-			<comment></comment>
+			<comment>5.</comment>
 		</query>
 		<query>
 			<formula>(TvController.OffState and User.Initial) --&gt; TvController.Initial</formula>
